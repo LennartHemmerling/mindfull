@@ -1,15 +1,21 @@
-# mindfull
+# mindfull - monorepo
 
-To install dependencies:
+## Development
 
-```bash
-bun install
+1. Install dependencies: `bun i`
+2. Run app in browser `bun run start:app`
+3. Run server on local network `bun run start:server`
+
+## Configuration
+
+### Server
+
+The mindfull server application is located at `/packages/mindfull/mindfull-server`
+
+#### .env configuration `/packages/mindfull/mindfull-server/.env`
+
 ```
-
-To run:
-
-```bash
-bun run index.ts
+SERVER_PORT = 5000
+SERVER_USE_STORE = file //memory
+SERVER_BASE_PATH = /home/<user>/mindfull-server
 ```
-
-This project was created using `bun init` in bun v1.1.43. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

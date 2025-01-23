@@ -6,11 +6,13 @@ import type {
     MindfullItem,
     MindfullStore,
     MindfullTag
-} from '../types'
+} from 'mindfull-types'
 
 type MindfullFileStore = MindfullStore
 
-export function createFileStore(basePath: string): MindfullFileStore {
+export function createFileStore(basePath?: string): MindfullFileStore {
+    if (!basePath) throw 'Base path not defined'
+
     const tags: MindfullTag[] = []
 
     const items: MindfullItem[] = []
