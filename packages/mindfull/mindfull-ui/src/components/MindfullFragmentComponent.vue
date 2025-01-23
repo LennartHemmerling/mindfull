@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, onMounted, ref, onBeforeUnmount } from 'vue'
+import { watch, onMounted, ref, onBeforeUnmount, reactive } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { Worker } from 'workers'
 
@@ -16,10 +16,12 @@ const props = defineProps<{
 
 const fragment = ref<MindfullFragment | null>(null)
 
-let worker: Worker | null = null
+const workers = reactive<{ [key: string]: Worker | null }>({
+    updateWorker: null
+})
 
 onMounted(() => {
-    worker = new Worker(async () => {
+    workers.updateWorker = new Worker(async () => {
         fragment.value = await props.store.getFragment(props.identifier)
     }).start(2000, true, true)
 
@@ -34,7 +36,7 @@ onMounted(() => {
     )
 })
 
-onBeforeUnmount(() => worker?.stop())
+onBeforeUnmount(() => workers.updateWorker?.stop())
 
 function toggleCheckbox() {
     if (fragment.value) fragment.value.value = fragment.value.value <= 0 ? 1 : 0

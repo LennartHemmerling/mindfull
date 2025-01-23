@@ -14,17 +14,19 @@ const data = reactive<UpdateWorkerData>({
     items: []
 })
 
-let worker: Worker | null = null
+const workers = reactive<{ [key: string]: Worker | null }>({
+    updateWorker: null
+})
 
 onMounted(
     () =>
-        (worker = createUpdateWorker(({ tags, items }) => {
+        (workers.updateWorker = createUpdateWorker(({ tags, items }) => {
             data.tags = tags
             data.items = items
         }).start(5000, true, true))
 )
 
-onBeforeUnmount(() => worker?.stop())
+onBeforeUnmount(() => workers.updateWorker?.stop())
 </script>
 
 <template>

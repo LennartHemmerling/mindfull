@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { Worker } from 'workers'
 
@@ -19,16 +19,18 @@ const props = defineProps<{
 
 const item = ref<MindfullItem | null>(null)
 
-let worker: Worker | null = null
+const workers = reactive<{ [key: string]: Worker | null }>({
+    updateWorker: null
+})
 
 onMounted(
     () =>
-        (worker = new Worker(async () => {
+        (workers.updateWorker = new Worker(async () => {
             item.value = await props.store.getItem(props.identifier)
         }).start(2000, true, true))
 )
 
-onBeforeUnmount(() => worker?.stop())
+onBeforeUnmount(() => workers.updateWorker?.stop())
 </script>
 
 <template>
