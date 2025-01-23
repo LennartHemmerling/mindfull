@@ -1,0 +1,5 @@
+{
+    "name": "workers",
+    "module": "index.ts",
+    "type": "module"
+}

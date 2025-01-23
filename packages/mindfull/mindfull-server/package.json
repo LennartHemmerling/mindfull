@@ -1,0 +1,19 @@
+{
+    "version": "0.0.1",
+    "name": "mindfull-server",
+    "type": "module",
+    "module": "index.ts",
+    "scripts": {
+        "start": "bun ./start.ts"
+    },
+    "dependencies": {
+        "express": "^4.21.2",
+        "cors": "^2.8.5",
+        "path": "^0.12.7",
+        "mindfull-types": "*"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/cors": "^2.8.17"
+    }
+}
