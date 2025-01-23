@@ -13,10 +13,6 @@ const extended = ref(false)
                     <font-awesome-icon icon="fa-solid fa-cog" />
                 </button>
 
-                <button @click="console.log('clicked sort')">
-                    <font-awesome-icon icon="fa-solid fa-arrows-up-down" />
-                </button>
-
                 <button @click="$router.push('add-item')">
                     <font-awesome-icon icon="fa-solid fa-plus" />
                 </button>

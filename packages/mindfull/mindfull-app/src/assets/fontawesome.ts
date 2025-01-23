@@ -3,7 +3,6 @@ import {
     faPen,
     faXmark,
     faPlus,
-    faArrowsUpDown,
     faCog,
     faChevronLeft,
     faCheck
@@ -12,7 +11,6 @@ import {
 library.add(faPen)
 library.add(faXmark)
 library.add(faPlus)
-library.add(faArrowsUpDown)
 library.add(faCog)
 library.add(faChevronLeft)
 library.add(faCheck)
