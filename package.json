@@ -7,7 +7,8 @@
     ],
     "scripts": {
         "start:server": "cd ./packages/mindfull/mindfull-server && bun start",
-        "start:app": "cd ./packages/mindfull/mindfull-app && bun start"
+        "start:app": "cd ./packages/mindfull/mindfull-app && bun start",
+        "build:app": "cd ./packages/mindfull/mindfull-app && bun run build"
     },
     "devDependencies": {
         "@types/bun": "latest"

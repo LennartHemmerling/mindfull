@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">mindfull</string>
+    <string name="title_activity_main">mindfull</string>
+    <string name="package_name">com.fromscript.mindfullapp</string>
+    <string name="custom_url_scheme">com.fromscript.mindfullapp</string>
+</resources>

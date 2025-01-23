@@ -5,7 +5,7 @@ import {
     type MindfullIdentifier
 } from 'mindfull-types'
 
-const store = createServerConnectionStore('http://192.168.178.22:5000/')
+const store = createServerConnectionStore('http://buttersmat.fritz.box:5000/')
 
 export type UpdateWorkerData = {
     tags: MindfullIdentifier[]
