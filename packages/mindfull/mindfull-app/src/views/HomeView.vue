@@ -1,86 +1,33 @@
 <script setup lang="ts">
-import { reactive, onBeforeUnmount, onMounted } from 'vue'
-import type { Worker } from 'workers'
-import { MindfullItemComponent } from 'mindfull-ui'
-
-import ToolbarComponent from '@/components/ToolbarComponent.vue'
-import mindfullStore, {
-    createUpdateWorker,
-    type UpdateWorkerData
-} from '@/store/mindfullStore'
-
-const data = reactive<UpdateWorkerData>({
-    tags: [],
-    items: []
-})
-
-const workers = reactive<{ [key: string]: Worker | null }>({
-    updateWorker: null
-})
-
-onMounted(
-    () =>
-        (workers.updateWorker = createUpdateWorker(({ tags, items }) => {
-            data.tags = tags
-            data.items = items
-        }).start(5000, true, true))
-)
-
-onBeforeUnmount(() => workers.updateWorker?.stop())
+import ItemViewComponent from '@/components/ItemViewComponent.vue'
 </script>
 
 <template>
-    <main>
-        <template
-            v-for="(identifier, i) in data.items"
-            :key="`tag-${identifier.id}`"
-        >
-            <transition
-                name="item-transition"
-                :style="`transition-delay: ${i * 100}ms;`"
-            >
-                <mindfull-item-component
-                    :identifier="identifier"
-                    :store="mindfullStore"
-                    :click-edit="
-                        () =>
-                            $router.push({
-                                name: 'edit-item',
-                                params: { ...identifier }
-                            })
-                    "
-                />
-            </transition>
-        </template>
+    <div class="home-navigation">
+        <div class="home-navigation_item"></div>
 
-        <div class="toolbar">
-            <div>
-                <toolbar-component />
-            </div>
+        <div id="items" class="home-navigation_item">
+            <item-view-component />
         </div>
-    </main>
+
+        <div class="home-navigation_item"></div>
+    </div>
 </template>
 
 <style scoped>
-.item-transition-enter-active,
-.item-transition-leave-active {
-    transition: translate 300ms ease-in-out, opacity 200ms ease-in-out;
+.home-navigation {
+    display: grid;
+
+    grid-template-columns: 100vw 100vw 100vw;
+    grid-template-rows: 100vh;
+
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
 }
 
-.item-transition-enter-from,
-.item-transition-leave-to {
-    translate: -100vw 0;
-    opacity: 0;
-}
+.home-navigation .home-navigation_item {
+    scroll-snap-align: center;
 
-.toolbar {
-    margin-top: calc(50px + 1rem + 1rem);
-}
-
-.toolbar > div {
-    position: fixed;
-
-    bottom: 1rem;
-    right: 1rem;
+    overflow-x: clip;
 }
 </style>
