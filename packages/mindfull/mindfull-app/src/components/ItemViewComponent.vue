@@ -30,7 +30,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 </script>
 
 <template>
-    <main>
+    <div>
         <template
             v-for="(identifier, i) in data.items"
             :key="`tag-${identifier.id}`"
@@ -58,7 +58,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
                 <toolbar-component />
             </div>
         </div>
-    </main>
+    </div>
 </template>
 
 <style scoped>

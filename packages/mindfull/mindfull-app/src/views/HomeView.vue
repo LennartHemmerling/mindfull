@@ -1,16 +1,19 @@
 <script setup lang="ts">
+import SourceViewComponent from '@/components/SourceViewComponent.vue'
 import ItemViewComponent from '@/components/ItemViewComponent.vue'
 </script>
 
 <template>
     <div class="home-navigation">
-        <div class="home-navigation_item"></div>
+        <main class="home-navigation_item">
+            <source-view-component />
+        </main>
 
-        <div id="items" class="home-navigation_item">
+        <main id="items" class="home-navigation_item">
             <item-view-component />
-        </div>
+        </main>
 
-        <div class="home-navigation_item"></div>
+        <main class="home-navigation_item"></main>
     </div>
 </template>
 
@@ -29,5 +32,6 @@ import ItemViewComponent from '@/components/ItemViewComponent.vue'
     scroll-snap-align: center;
 
     overflow-x: clip;
+    overflow-y: auto;
 }
 </style>
