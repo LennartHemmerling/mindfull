@@ -20,6 +20,8 @@ const props = defineProps<{
             @click="props.clickSource(props.sourceIndex)"
         >
             <h2>SOURCE</h2>
+
+            <p>Some text</p>
         </button>
     </div>
 </template>
@@ -31,10 +33,14 @@ const props = defineProps<{
 }
 
 .mindfull-source-component button {
-    text-align: end;
-    padding-right: 1.5rem;
+    display: flex;
+    flex-direction: column;
 
     border: none;
+
+    overflow: clip;
+
+    padding: 1rem;
 
     height: 60px;
     width: 70%;
@@ -45,9 +51,45 @@ const props = defineProps<{
     transition: padding-right 300ms ease-in-out, width 200ms ease-in-out;
 }
 
-.mindfull-source-component.selected button {
-    padding-right: 5rem;
+.mindfull-source-component button h2 {
+    display: flex;
+
+    justify-content: flex-end;
+    align-items: center;
 
     width: 100%;
+    height: 100%;
+
+    interpolate-size: allow-keywords;
+
+    transition: width 300ms ease-in-out, height 200ms ease-in-out;
+}
+
+.mindfull-source-component button p {
+    padding-top: 0.2rem;
+
+    translate: 100vw 0;
+
+    height: 0;
+
+    transition: translate 200ms ease-in-out;
+}
+
+.mindfull-source-component.selected button {
+    height: 100px;
+    width: 100%;
+}
+
+.mindfull-source-component.selected button h2 {
+    width: min-content;
+    height: min-content;
+
+    text-align: end;
+}
+
+.mindfull-source-component.selected button p {
+    translate: 0 0;
+
+    transition: translate 400ms 100ms ease-in-out;
 }
 </style>
