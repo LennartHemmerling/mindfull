@@ -32,7 +32,9 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 </script>
 
 <template>
-    <div :class="`items ${colorTheme(props.sourceIndex, 2).container}`">
+    <div
+        :class="`wrapper-padding ${colorTheme(props.sourceIndex, 2).container}`"
+    >
         <template
             v-for="(identifier, i) in data.items"
             :key="`tag-${identifier.id}`"
@@ -65,14 +67,6 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 </template>
 
 <style scoped>
-.items {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-}
-
 .item-transition-enter-active,
 .item-transition-leave-active {
     transition: translate 300ms ease-in-out, opacity 200ms ease-in-out;

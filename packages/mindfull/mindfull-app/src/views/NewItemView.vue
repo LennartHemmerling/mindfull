@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { type MindfullIdentifier, type MindfullStore } from 'mindfull-types'
-import { MindfullItemEditingComponent } from 'mindfull-ui'
+import { colorTheme, MindfullItemEditingComponent } from 'mindfull-ui'
 
 import BackButtonComponent from '@/components/BackButtonComponent.vue'
 
@@ -47,7 +47,7 @@ async function saveNewItem() {
 </script>
 
 <template>
-    <main>
+    <main :class="`wrapper-padding ${colorTheme(sourceIndex, 2).container}`">
         <mindfull-item-editing-component
             v-if="newItemStore"
             :source-index="sourceIndex"
