@@ -67,6 +67,8 @@ const extended = ref(false)
     background-color: var(--seasalt);
 
     transition: scale 200ms ease-in-out;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .toolbar-component button:active {
