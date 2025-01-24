@@ -1,39 +1,43 @@
 <script setup lang="ts">
-import { reactive, onBeforeUnmount, onMounted } from 'vue'
+import { reactive, onBeforeUnmount, onMounted, watch, computed } from 'vue'
 import type { Worker } from 'workers'
 import { MindfullItemComponent, colorTheme } from 'mindfull-ui'
 
 import ToolbarComponent from '@/components/ToolbarComponent.vue'
-import mindfullStore, {
+import {
     createUpdateWorker,
+    type MindfullAppStoreEntry,
     type UpdateWorkerData
 } from '@/store/mindfullStore'
 
-const props = defineProps<{ sourceIndex: number }>()
+const props = defineProps<{ entry: MindfullAppStoreEntry }>()
 
 const data = reactive<UpdateWorkerData>({
     tags: [],
     items: []
 })
 
-const workers = reactive<{ [key: string]: Worker | null }>({
-    updateWorker: null
+const updateWorker = computed<Worker>((old) => {
+    old?.stop()
+
+    return createUpdateWorker(props.entry.store, ({ tags, items }) => {
+        data.tags = tags
+        data.items = items
+    })
 })
 
-onMounted(
-    () =>
-        (workers.updateWorker = createUpdateWorker(({ tags, items }) => {
-            data.tags = tags
-            data.items = items
-        }).start(5000, true, true))
-)
+watch(updateWorker, (updateWorker) => updateWorker.start(5000, true, true), {
+    immediate: true
+})
 
-onBeforeUnmount(() => workers.updateWorker?.stop())
+onBeforeUnmount(() => updateWorker.value.stop())
 </script>
 
 <template>
     <div
-        :class="`wrapper-padding ${colorTheme(props.sourceIndex, 2).container}`"
+        :class="`wrapper-padding ${
+            colorTheme(props.entry.source.sourceIndex, 2).container
+        }`"
     >
         <template
             v-for="(identifier, i) in data.items"
@@ -44,9 +48,9 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
                 :style="`transition-delay: ${i * 100}ms;`"
             >
                 <mindfull-item-component
-                    :source-index="props.sourceIndex"
                     :identifier="identifier"
-                    :store="mindfullStore"
+                    :source="props.entry.source"
+                    :store="props.entry.store"
                     :click-edit="
                         () =>
                             $router.push({
@@ -67,6 +71,10 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 </template>
 
 <style scoped>
+.wrapper-padding {
+    min-height: 100vh;
+}
+
 .item-transition-enter-active,
 .item-transition-leave-active {
     transition: translate 300ms ease-in-out, opacity 200ms ease-in-out;

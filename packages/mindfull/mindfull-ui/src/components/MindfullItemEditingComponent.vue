@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import type {
     MindfullIdentifier,
     MindfullStore,
-    MindfullItem
+    MindfullItem,
+    MindfullSource
 } from 'mindfull-types'
 
 import InputLineComponent from './InputLineComponent.vue'
@@ -16,8 +17,8 @@ import MindfullFragmentEditingComponent from './MindfullFragmentEditingComponent
 import colorTheme from '../assets/colorTheme'
 
 const props = defineProps<{
-    sourceIndex: number
     identifier: MindfullIdentifier
+    source: MindfullSource
     store: MindfullStore
 }>()
 
@@ -61,12 +62,12 @@ async function addFragment() {
     <div v-if="item">
         <div
             :class="`mindfull-item-editing-component ${
-                colorTheme(props.sourceIndex, 0).container
+                colorTheme(props.source.sourceIndex, 0).container
             }`"
         >
             <div class="mindfull-item-editing-component_title">
                 <input-line-component
-                    :class="colorTheme(props.sourceIndex, 1).container"
+                    :class="colorTheme(props.source.sourceIndex, 1).container"
                     v-model="item.name"
                     debounce="500"
                 />
@@ -74,7 +75,7 @@ async function addFragment() {
 
             <div class="mindfull-item-editing-component_content">
                 <input-area-component
-                    :class="colorTheme(props.sourceIndex, 1).container"
+                    :class="colorTheme(props.source.sourceIndex, 1).container"
                     v-model="item.description"
                     debounce="500"
                 />
@@ -88,8 +89,8 @@ async function addFragment() {
                     :style="`transition-duration: ${i * 100 + 400}ms;`"
                 >
                     <mindfull-fragment-editing-component
-                        :source-index="props.sourceIndex"
                         :identifier="identifier"
+                        :source="props.source"
                         :store="props.store"
                     />
                 </transition>

@@ -4,13 +4,18 @@ import { useRoute } from 'vue-router'
 
 import SourceViewComponent from '@/components/SourceViewComponent.vue'
 import ItemViewComponent from '@/components/ItemViewComponent.vue'
+import mindfullStore from '@/store/mindfullStore'
 
 const route = useRoute()
 
-const sourceIndex = computed(() => {
+const entry = computed(() => {
     const source = route.params['source']
 
-    return source !== '' ? Number(source) : 0
+    const sourceIndex = source !== '' ? Number(source) : 0
+
+    return mindfullStore.find(
+        ({ source }) => source.sourceIndex === sourceIndex
+    )
 })
 </script>
 
@@ -19,14 +24,14 @@ const sourceIndex = computed(() => {
         <main class="home-navigation_item">
             <h1>mindfull</h1>
 
-            <source-view-component :source-index="sourceIndex" />
+            <source-view-component :entry="entry" />
         </main>
 
-        <main id="items" class="home-navigation_item">
-            <item-view-component :source-index="sourceIndex" />
+        <main v-if="entry" id="items" class="home-navigation_item">
+            <item-view-component :entry="entry" />
         </main>
 
-        <main class="home-navigation_item"></main>
+        <main v-if="entry" class="home-navigation_item"></main>
     </div>
 </template>
 

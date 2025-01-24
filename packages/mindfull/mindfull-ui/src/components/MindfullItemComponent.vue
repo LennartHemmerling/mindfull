@@ -6,7 +6,8 @@ import { Worker } from 'workers'
 import type {
     MindfullIdentifier,
     MindfullStore,
-    MindfullItem
+    MindfullItem,
+    MindfullSource
 } from 'mindfull-types'
 
 import MindfullFragmentComponent from './MindfullFragmentComponent.vue'
@@ -14,8 +15,8 @@ import MindfullFragmentComponent from './MindfullFragmentComponent.vue'
 import colorTheme from '../assets/colorTheme'
 
 const props = defineProps<{
-    sourceIndex: number
     identifier: MindfullIdentifier
+    source: MindfullSource
     store: MindfullStore
     clickEdit: () => void
 }>()
@@ -40,12 +41,12 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
     <div
         v-if="item"
         :class="`mindfull-item-component ${
-            colorTheme(props.sourceIndex, 0).container
+            colorTheme(props.source.sourceIndex, 0).container
         }`"
     >
         <div
             :class="`mindfull-item-component_title ${
-                colorTheme(props.sourceIndex, 0).text
+                colorTheme(props.source.sourceIndex, 0).text
             }`"
         >
             <h2>{{ item.name }}</h2>
@@ -53,7 +54,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 
         <div
             :class="`mindfull-item-component_content ${
-                colorTheme(props.sourceIndex, 0).text
+                colorTheme(props.source.sourceIndex, 0).text
             }`"
         >
             <template
@@ -67,7 +68,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
         <div class="mindfull-item-component_edit">
             <button @click="props.clickEdit()">
                 <font-awesome-icon
-                    :class="colorTheme(props.sourceIndex, 0).text"
+                    :class="colorTheme(props.source.sourceIndex, 0).text"
                     icon="fa-solid fa-pen-to-square"
                 />
             </button>
@@ -80,9 +81,9 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
                     :style="`transition-duration: ${i * 100 + 400}ms;`"
                 >
                     <mindfull-fragment-component
-                        :source-index="props.sourceIndex"
                         :identifier="identifier"
                         :store="props.store"
+                        :source="props.source"
                     />
                 </transition>
             </template>

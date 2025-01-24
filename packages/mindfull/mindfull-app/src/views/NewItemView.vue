@@ -17,6 +17,12 @@ const sourceIndex = computed(() => {
     return source !== '' ? Number(source) : 0
 })
 
+const entry = computed(() => {
+    return mindfullStore.find(
+        ({ source }) => source.sourceIndex === sourceIndex.value
+    )
+})
+
 const router = useRouter()
 
 const newItemId: MindfullIdentifier = { id: 'new' }
@@ -36,23 +42,26 @@ async function saveNewItem() {
             if (!newItemStore.value) return
 
             const fragment = await newItemStore.value.getFragment(identifier)
-            await mindfullStore.setFragment(fragment)
+            await entry.value?.store.setFragment(fragment)
         })
     )
 
-    await mindfullStore.setItem(item)
+    await entry.value?.store.setItem(item)
 
     router.back()
 }
 </script>
 
 <template>
-    <main :class="`wrapper-padding ${colorTheme(sourceIndex, 2).container}`">
+    <main
+        v-if="entry"
+        :class="`wrapper-padding ${colorTheme(sourceIndex, 2).container}`"
+    >
         <mindfull-item-editing-component
             v-if="newItemStore"
-            :source-index="sourceIndex"
             :identifier="newItemId"
             :store="newItemStore"
+            :source="entry.source"
         />
 
         <div class="back-button">
@@ -98,6 +107,8 @@ async function saveNewItem() {
     background-color: var(--seasalt);
 
     transition: scale 200ms ease-in-out;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .back-button > div:last-child button:active {

@@ -16,6 +16,12 @@ const sourceIndex = computed(() => {
     return source !== '' ? Number(source) : 0
 })
 
+const entry = computed(() => {
+    return mindfullStore.find(
+        ({ source }) => source.sourceIndex === sourceIndex.value
+    )
+})
+
 const router = useRouter()
 
 const identifier = ref<MindfullIdentifier | null>()
@@ -26,12 +32,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <main :class="`wrapper-padding ${colorTheme(sourceIndex, 2).container}`">
+    <main
+        v-if="entry"
+        :class="`wrapper-padding ${colorTheme(sourceIndex, 2).container}`"
+    >
         <mindfull-item-editing-component
             v-if="identifier"
-            :source-index="sourceIndex"
             :identifier="identifier"
-            :store="mindfullStore"
+            :store="entry.store"
+            :source="entry.source"
         />
 
         <div class="back-button">

@@ -25,6 +25,16 @@ export type MindfullFragment = MindfullIdentifier & {
     date: number
 }
 
+export type MindfullSource = {
+    name: string
+    description: string
+    sourceIndex: number
+    location: 'local' | 'online' | string
+    online?: {
+        address: string
+    }
+}
+
 export type MindfullStoreItemFilter = {}
 
 export type MindfullStore = {

@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import type {
     MindfullIdentifier,
     MindfullStore,
-    MindfullFragment
+    MindfullFragment,
+    MindfullSource
 } from 'mindfull-types'
 
 import InputLineComponent from './InputLineComponent.vue'
@@ -14,8 +15,8 @@ import InputAreaComponent from './InputAreaComponent.vue'
 import colorTheme from '../assets/colorTheme'
 
 const props = defineProps<{
-    sourceIndex: number
     identifier: MindfullIdentifier
+    source: MindfullSource
     store: MindfullStore
 }>()
 
@@ -44,20 +45,20 @@ function toggleCheckbox() {
     <div
         v-if="fragment"
         :class="`mindfull-fragment-editing-component ${
-            colorTheme(props.sourceIndex, 0).container
+            colorTheme(props.source.sourceIndex, 0).container
         }`"
     >
         <div class="mindfull-fragment-editing-component_action">
             <button v-if="fragment.type === 'todo'" @click="toggleCheckbox()">
                 <font-awesome-icon
                     v-if="fragment.value <= 0"
-                    :class="colorTheme(props.sourceIndex, 0).text"
+                    :class="colorTheme(props.source.sourceIndex, 0).text"
                     icon="fa-solid fa-square"
                 />
 
                 <font-awesome-icon
                     v-else
-                    :class="colorTheme(props.sourceIndex, 0).text"
+                    :class="colorTheme(props.source.sourceIndex, 0).text"
                     icon="fa-solid fa-square-check"
                 />
             </button>
@@ -88,7 +89,7 @@ function toggleCheckbox() {
 
         <div class="mindfull-fragment-editing-component_title">
             <input-line-component
-                :class="colorTheme(props.sourceIndex, 1).container"
+                :class="colorTheme(props.source.sourceIndex, 1).container"
                 v-model="fragment.name"
                 debounce="500"
             />
@@ -96,7 +97,7 @@ function toggleCheckbox() {
 
         <div class="mindfull-fragment-editing-component_content">
             <input-area-component
-                :class="colorTheme(props.sourceIndex, 1).container"
+                :class="colorTheme(props.source.sourceIndex, 1).container"
                 v-model="fragment.description"
                 debounce="500"
             />

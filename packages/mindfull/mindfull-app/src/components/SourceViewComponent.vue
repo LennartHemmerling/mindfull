@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 import { useRouter } from 'vue-router'
 import { MindfullSourceComponent } from 'mindfull-ui'
+import type { MindfullAppStoreEntry } from '@/store/mindfullStore'
+import mindfullStore from '@/store/mindfullStore'
 
-const props = defineProps<{ sourceIndex: number }>()
+const props = defineProps<{ entry?: MindfullAppStoreEntry }>()
 
-const sources = [0, 1]
+const sourceIndexs = computed(() => {
+    return mindfullStore.map(({ source }) => source.sourceIndex)
+})
 
 const router = useRouter()
 
@@ -17,10 +21,10 @@ function clickSource(sourceIndex: number) {
 <template>
     <div class="sources">
         <div>
-            <template v-for="source in sources" :key="`source-${source}`">
+            <template v-for="source in sourceIndexs" :key="`source-${source}`">
                 <mindfull-source-component
                     :source-index="source"
-                    :selected="props.sourceIndex === source"
+                    :selected="props.entry?.source.sourceIndex === source"
                     :click-source="clickSource"
                 />
             </template>
