@@ -1,7 +1,7 @@
 type WorkerTrigger = (() => void) | (() => Promise<void>)
 
 export class Worker {
-    _started: boolean = false
+    _timer: Timer | null = null
 
     trigger: WorkerTrigger
 
@@ -10,20 +10,32 @@ export class Worker {
     }
 
     start(ms = 1000, triggerFirst = true, waitForTrigger = false): Worker {
-        this._started = true
+        const _trigger = async () => {
+            if (waitForTrigger) await this.trigger()
+            else this.trigger()
+        }
 
         new Promise<void>(async (resolve, reject) => {
             try {
-                if (triggerFirst) await this.trigger()
+                if (triggerFirst) await _trigger()
 
-                while (this._started) {
-                    await new Promise((resolve) => setTimeout(resolve, ms))
+                const _work = async () => {
+                    await new Promise<void>((resolve, reject) =>
+                        setTimeout(async () => {
+                            try {
+                                await _trigger()
 
-                    if (!this._started) break
+                                resolve()
+                            } catch (e) {
+                                reject(e)
+                            }
+                        }, ms)
+                    )
 
-                    if (waitForTrigger) await this.trigger()
-                    else this.trigger()
+                    _work()
                 }
+
+                _work()
 
                 resolve()
             } catch (e) {
@@ -35,7 +47,9 @@ export class Worker {
     }
 
     stop(): Worker {
-        this._started = false
+        if (this._timer) clearTimeout(this._timer)
+
+        this._timer = null
 
         return this
     }
