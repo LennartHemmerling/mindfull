@@ -1,14 +1,23 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { type MindfullIdentifier, type MindfullStore } from 'mindfull-types'
 import { MindfullItemEditingComponent } from 'mindfull-ui'
 
 import BackButtonComponent from '@/components/BackButtonComponent.vue'
 
-import router from '@/router'
-
 import mindfullStore, { createNewItemStore } from '@/store/mindfullStore'
+
+const route = useRoute()
+
+const sourceIndex = computed(() => {
+    const source = route.params['source']
+
+    return source !== '' ? Number(source) : 0
+})
+
+const router = useRouter()
 
 const newItemId: MindfullIdentifier = { id: 'new' }
 const newItemStore = ref<MindfullStore | null>(null)
@@ -41,6 +50,7 @@ async function saveNewItem() {
     <main>
         <mindfull-item-editing-component
             v-if="newItemStore"
+            :source-index="sourceIndex"
             :identifier="newItemId"
             :store="newItemStore"
         />

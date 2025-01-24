@@ -9,7 +9,10 @@ import type {
     MindfullFragment
 } from 'mindfull-types'
 
+import chooseDefaultColor from '../assets/chooseDefaultColor'
+
 const props = defineProps<{
+    sourceIndex: number
     identifier: MindfullIdentifier
     store: MindfullStore
 }>()
@@ -44,25 +47,41 @@ function toggleCheckbox() {
 </script>
 
 <template>
-    <div v-if="fragment" class="mindfull-fragment-component">
+    <div
+        v-if="fragment"
+        :class="`mindfull-fragment-component ${
+            chooseDefaultColor(props.sourceIndex, 1).container
+        }`"
+    >
         <div class="mindfull-fragment-component_action">
             <button v-if="fragment.type === 'todo'" @click="toggleCheckbox()">
                 <font-awesome-icon
                     v-if="fragment.value <= 0"
+                    :class="chooseDefaultColor(props.sourceIndex, 1).text"
                     icon="fa-solid fa-square"
                 />
 
-                <font-awesome-icon v-else icon="fa-solid fa-square-check" />
+                <font-awesome-icon
+                    v-else
+                    :class="chooseDefaultColor(props.sourceIndex, 1).text"
+                    icon="fa-solid fa-square-check"
+                />
             </button>
         </div>
 
-        <div class="mindfull-fragment-component_title">
+        <div
+            :class="`mindfull-fragment-component_title ${
+                chooseDefaultColor(props.sourceIndex, 1).text
+            }`"
+        >
             <h3>{{ fragment.name }}</h3>
         </div>
 
         <div
             v-if="fragment.description.trim() !== ''"
-            class="mindfull-fragment-component_content"
+            :class="`mindfull-fragment-component_content ${
+                chooseDefaultColor(props.sourceIndex, 1).text
+            }`"
         >
             <template
                 v-for="(line, i) in fragment.description.split('\n')"
@@ -79,8 +98,6 @@ function toggleCheckbox() {
     border-radius: 10px;
 
     padding: 10px;
-
-    background-color: var(--jasmine);
 
     display: grid;
     grid-template-areas: 'action title' 'action content';
@@ -101,18 +118,13 @@ function toggleCheckbox() {
 
 .mindfull-fragment-component_action button svg {
     font-size: 1.2rem;
-    color: var(--jet);
 }
 
 .mindfull-fragment-component_title {
     grid-area: title;
-
-    color: var(--jet);
 }
 
 .mindfull-fragment-component_content {
     grid-area: content;
-
-    color: var(--jet);
 }
 </style>

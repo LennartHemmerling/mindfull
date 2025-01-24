@@ -8,3 +8,35 @@
     --seasalt: #f8f8f8;
     --cambridge-blue: #83bca9;
 }
+
+.color-set_0-0 {
+    background-color: var(--mustard);
+}
+
+.color-set_0-0-text {
+    color: var(--jet);
+}
+
+.color-set_0-1 {
+    background-color: var(--jasmine);
+}
+
+.color-set_0-1-text {
+    color: var(--jet);
+}
+
+.color-set_1-0 {
+    background-color: var(--chestnut);
+}
+
+.color-set_1-0-text {
+    color: var(--jet);
+}
+
+.color-set_1-1 {
+    background-color: var(--flame);
+}
+
+.color-set_1-1-text {
+    color: var(--jet);
+}

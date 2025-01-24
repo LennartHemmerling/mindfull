@@ -9,6 +9,8 @@ import mindfullStore, {
     type UpdateWorkerData
 } from '@/store/mindfullStore'
 
+const props = defineProps<{ sourceIndex: number }>()
+
 const data = reactive<UpdateWorkerData>({
     tags: [],
     items: []
@@ -40,6 +42,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
                 :style="`transition-delay: ${i * 100}ms;`"
             >
                 <mindfull-item-component
+                    :source-index="props.sourceIndex"
                     :identifier="identifier"
                     :store="mindfullStore"
                     :click-edit="

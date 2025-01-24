@@ -1,13 +1,22 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import type { MindfullIdentifier } from 'mindfull-types'
 import { MindfullItemEditingComponent } from 'mindfull-ui'
 
 import BackButtonComponent from '@/components/BackButtonComponent.vue'
 
-import router from '@/router'
-
 import mindfullStore from '@/store/mindfullStore'
+
+const route = useRoute()
+
+const sourceIndex = computed(() => {
+    const source = route.params['source']
+
+    return source !== '' ? Number(source) : 0
+})
+
+const router = useRouter()
 
 const identifier = ref<MindfullIdentifier | null>()
 
@@ -20,6 +29,7 @@ onMounted(() => {
     <main>
         <mindfull-item-editing-component
             v-if="identifier"
+            :source-index="sourceIndex"
             :identifier="identifier"
             :store="mindfullStore"
         />

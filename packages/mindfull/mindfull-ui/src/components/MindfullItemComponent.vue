@@ -11,7 +11,10 @@ import type {
 
 import MindfullFragmentComponent from './MindfullFragmentComponent.vue'
 
+import chooseDefaultColor from '../assets/chooseDefaultColor'
+
 const props = defineProps<{
+    sourceIndex: number
     identifier: MindfullIdentifier
     store: MindfullStore
     clickEdit: () => void
@@ -34,12 +37,25 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 </script>
 
 <template>
-    <div v-if="item" class="mindfull-item-component">
-        <div class="mindfull-item-component_title">
+    <div
+        v-if="item"
+        :class="`mindfull-item-component ${
+            chooseDefaultColor(props.sourceIndex, 0).container
+        }`"
+    >
+        <div
+            :class="`mindfull-item-component_title ${
+                chooseDefaultColor(props.sourceIndex, 0).text
+            }`"
+        >
             <h2>{{ item.name }}</h2>
         </div>
 
-        <div class="mindfull-item-component_content">
+        <div
+            :class="`mindfull-item-component_content ${
+                chooseDefaultColor(props.sourceIndex, 0).text
+            }`"
+        >
             <template
                 v-for="(line, i) in item.description.split('\n')"
                 :key="`item-description-${line}-${i}`"
@@ -50,7 +66,10 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 
         <div class="mindfull-item-component_edit">
             <button @click="props.clickEdit()">
-                <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                <font-awesome-icon
+                    :class="chooseDefaultColor(props.sourceIndex, 0).text"
+                    icon="fa-solid fa-pen-to-square"
+                />
             </button>
         </div>
 
@@ -61,6 +80,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
                     :style="`transition-duration: ${i * 100 + 400}ms;`"
                 >
                     <mindfull-fragment-component
+                        :source-index="props.sourceIndex"
                         :identifier="identifier"
                         :store="props.store"
                     />
@@ -78,8 +98,6 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 
     margin-top: 1rem;
 
-    background-color: var(--mustard);
-
     display: grid;
     grid-template-areas: 'title edit' 'content content' 'fragments fragments';
     grid-template-columns: 1fr auto;
@@ -89,14 +107,10 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 
 .mindfull-item-component_title {
     grid-area: title;
-
-    color: var(--jet);
 }
 
 .mindfull-item-component_content {
     grid-area: content;
-
-    color: var(--jet);
 }
 
 .mindfull-item-component_edit {
@@ -110,7 +124,6 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 
 .mindfull-item-component_edit button svg {
     font-size: 1rem;
-    color: var(--jet);
 }
 
 .mindfull-item-component_fragments {

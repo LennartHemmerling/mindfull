@@ -11,7 +11,10 @@ import type {
 import InputLineComponent from './InputLineComponent.vue'
 import InputAreaComponent from './InputAreaComponent.vue'
 
+import chooseDefaultColor from '../assets/chooseDefaultColor'
+
 const props = defineProps<{
+    sourceIndex: number
     identifier: MindfullIdentifier
     store: MindfullStore
 }>()
@@ -38,15 +41,25 @@ function toggleCheckbox() {
 </script>
 
 <template>
-    <div v-if="fragment" class="mindfull-fragment-editing-component">
+    <div
+        v-if="fragment"
+        :class="`mindfull-fragment-editing-component ${
+            chooseDefaultColor(props.sourceIndex, 0).container
+        }`"
+    >
         <div class="mindfull-fragment-editing-component_action">
             <button v-if="fragment.type === 'todo'" @click="toggleCheckbox()">
                 <font-awesome-icon
                     v-if="fragment.value <= 0"
+                    :class="chooseDefaultColor(props.sourceIndex, 0).text"
                     icon="fa-solid fa-square"
                 />
 
-                <font-awesome-icon v-else icon="fa-solid fa-square-check" />
+                <font-awesome-icon
+                    v-else
+                    :class="chooseDefaultColor(props.sourceIndex, 0).text"
+                    icon="fa-solid fa-square-check"
+                />
             </button>
         </div>
 
@@ -74,11 +87,16 @@ function toggleCheckbox() {
         </div>
 
         <div class="mindfull-fragment-editing-component_title">
-            <input-line-component v-model="fragment.name" debounce="500" />
+            <input-line-component
+                :class="chooseDefaultColor(props.sourceIndex, 1).container"
+                v-model="fragment.name"
+                debounce="500"
+            />
         </div>
 
         <div class="mindfull-fragment-editing-component_content">
             <input-area-component
+                :class="chooseDefaultColor(props.sourceIndex, 1).container"
                 v-model="fragment.description"
                 debounce="500"
             />
@@ -93,8 +111,6 @@ function toggleCheckbox() {
     padding: 10px;
 
     margin-left: 10px;
-
-    background-color: var(--mustard);
 
     display: grid;
     grid-template-areas: 'type type' 'action title' 'action content';
@@ -117,7 +133,6 @@ function toggleCheckbox() {
 
 .mindfull-fragment-editing-component_action button svg {
     font-size: 1.2rem;
-    color: var(--jet);
 }
 
 .mindfull-fragment-editing-component_type {
@@ -157,14 +172,10 @@ function toggleCheckbox() {
 
 .mindfull-fragment-editing-component_title {
     grid-area: title;
-
-    color: var(--jet);
 }
 
 .mindfull-fragment-editing-component_content {
     grid-area: content;
-
-    color: var(--jet);
 }
 
 .mindfull-fragment-editing-component_title input,
@@ -176,8 +187,6 @@ function toggleCheckbox() {
     border-radius: 15px;
 
     padding: 10px;
-
-    background-color: var(--jasmine);
 }
 
 .mindfull-fragment-editing-component_content textarea {

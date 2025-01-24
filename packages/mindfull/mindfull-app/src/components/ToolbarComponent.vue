@@ -1,6 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+const route = useRoute()
+
+const sourceIndex = computed(() => {
+    const source = route.params['source']
+
+    return source !== '' ? Number(source) : 0
+})
 
 const extended = ref(false)
 </script>
@@ -13,7 +22,7 @@ const extended = ref(false)
                     <font-awesome-icon icon="fa-solid fa-cog" />
                 </button>
 
-                <button @click="$router.push('add-item')">
+                <button @click="$router.push(`/add-item/${sourceIndex}`)">
                     <font-awesome-icon icon="fa-solid fa-plus" />
                 </button>
             </div>

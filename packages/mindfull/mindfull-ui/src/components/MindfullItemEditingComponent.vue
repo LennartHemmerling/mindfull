@@ -13,7 +13,10 @@ import InputAreaComponent from './InputAreaComponent.vue'
 
 import MindfullFragmentEditingComponent from './MindfullFragmentEditingComponent.vue'
 
+import chooseDefaultColor from '../assets/chooseDefaultColor'
+
 const props = defineProps<{
+    sourceIndex: number
     identifier: MindfullIdentifier
     store: MindfullStore
 }>()
@@ -56,13 +59,22 @@ async function addFragment() {
 
 <template>
     <div v-if="item">
-        <div class="mindfull-item-editing-component">
+        <div
+            :class="`mindfull-item-editing-component ${
+                chooseDefaultColor(props.sourceIndex, 0).container
+            }`"
+        >
             <div class="mindfull-item-editing-component_title">
-                <input-line-component v-model="item.name" debounce="500" />
+                <input-line-component
+                    :class="chooseDefaultColor(props.sourceIndex, 1).container"
+                    v-model="item.name"
+                    debounce="500"
+                />
             </div>
 
             <div class="mindfull-item-editing-component_content">
                 <input-area-component
+                    :class="chooseDefaultColor(props.sourceIndex, 1).container"
                     v-model="item.description"
                     debounce="500"
                 />
@@ -76,6 +88,7 @@ async function addFragment() {
                     :style="`transition-duration: ${i * 100 + 400}ms;`"
                 >
                     <mindfull-fragment-editing-component
+                        :source-index="props.sourceIndex"
                         :identifier="identifier"
                         :store="props.store"
                     />
@@ -100,8 +113,6 @@ async function addFragment() {
 
     margin-top: 1rem;
 
-    background-color: var(--mustard);
-
     display: grid;
     grid-template-areas: 'title' 'content';
     grid-template-columns: 1fr;
@@ -111,14 +122,10 @@ async function addFragment() {
 
 .mindfull-item-editing-component_title {
     grid-area: title;
-
-    color: var(--jet);
 }
 
 .mindfull-item-editing-component_content {
     grid-area: content;
-
-    color: var(--jet);
 }
 
 .mindfull-item-editing-component_title input,
@@ -130,8 +137,6 @@ async function addFragment() {
     border-radius: 15px;
 
     padding: 10px;
-
-    background-color: var(--jasmine);
 }
 
 .mindfull-item-editing-component_title input {
