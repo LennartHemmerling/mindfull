@@ -7,8 +7,8 @@ import mindfullStore from '@/store/mindfullStore'
 
 const props = defineProps<{ entry?: MindfullAppStoreEntry }>()
 
-const sourceIndexs = computed(() => {
-    return mindfullStore.map(({ source }) => source.sourceIndex)
+const sources = computed(() => {
+    return mindfullStore.map(({ source }) => source)
 })
 
 const router = useRouter()
@@ -21,10 +21,12 @@ function clickSource(sourceIndex: number) {
 <template>
     <div class="sources">
         <div>
-            <template v-for="source in sourceIndexs" :key="`source-${source}`">
+            <template v-for="source in sources" :key="`source-${source}`">
                 <mindfull-source-component
-                    :source-index="source"
-                    :selected="props.entry?.source.sourceIndex === source"
+                    :source="source"
+                    :selected="
+                        props.entry?.source.sourceIndex === source.sourceIndex
+                    "
                     :click-source="clickSource"
                 />
             </template>

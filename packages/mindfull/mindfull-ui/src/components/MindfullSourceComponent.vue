@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 import colorTheme from '../assets/colorTheme'
+import type { MindfullSource } from 'mindfull-types'
 
 const props = defineProps<{
-    sourceIndex: number
+    source: MindfullSource
     selected: boolean
     clickSource: (sourceIndex: number) => void
 }>()
@@ -14,14 +15,14 @@ const props = defineProps<{
         :class="`mindfull-source-component ${props.selected ? 'selected' : ''}`"
     >
         <button
-            :class="`${colorTheme(props.sourceIndex, 2).container} ${
-                colorTheme(props.sourceIndex, 2).text
+            :class="`${colorTheme(props.source.sourceIndex, 2).container} ${
+                colorTheme(props.source.sourceIndex, 2).text
             }`"
-            @click="props.clickSource(props.sourceIndex)"
+            @click="props.clickSource(props.source.sourceIndex)"
         >
-            <h2>SOURCE</h2>
+            <h2>{{ source.name }}</h2>
 
-            <p>Some text</p>
+            <p>{{ source.description }}</p>
         </button>
     </div>
 </template>
