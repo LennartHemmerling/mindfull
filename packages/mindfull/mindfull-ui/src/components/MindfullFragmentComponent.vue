@@ -9,7 +9,7 @@ import type {
     MindfullFragment
 } from 'mindfull-types'
 
-import chooseDefaultColor from '../assets/chooseDefaultColor'
+import colorTheme from '../assets/colorTheme'
 
 const props = defineProps<{
     sourceIndex: number
@@ -50,20 +50,20 @@ function toggleCheckbox() {
     <div
         v-if="fragment"
         :class="`mindfull-fragment-component ${
-            chooseDefaultColor(props.sourceIndex, 1).container
+            colorTheme(props.sourceIndex, 1).container
         }`"
     >
         <div class="mindfull-fragment-component_action">
             <button v-if="fragment.type === 'todo'" @click="toggleCheckbox()">
                 <font-awesome-icon
                     v-if="fragment.value <= 0"
-                    :class="chooseDefaultColor(props.sourceIndex, 1).text"
+                    :class="colorTheme(props.sourceIndex, 1).text"
                     icon="fa-solid fa-square"
                 />
 
                 <font-awesome-icon
                     v-else
-                    :class="chooseDefaultColor(props.sourceIndex, 1).text"
+                    :class="colorTheme(props.sourceIndex, 1).text"
                     icon="fa-solid fa-square-check"
                 />
             </button>
@@ -71,7 +71,7 @@ function toggleCheckbox() {
 
         <div
             :class="`mindfull-fragment-component_title ${
-                chooseDefaultColor(props.sourceIndex, 1).text
+                colorTheme(props.sourceIndex, 1).text
             }`"
         >
             <h3>{{ fragment.name }}</h3>
@@ -80,7 +80,7 @@ function toggleCheckbox() {
         <div
             v-if="fragment.description.trim() !== ''"
             :class="`mindfull-fragment-component_content ${
-                chooseDefaultColor(props.sourceIndex, 1).text
+                colorTheme(props.sourceIndex, 1).text
             }`"
         >
             <template

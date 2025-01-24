@@ -11,7 +11,7 @@ import type {
 import InputLineComponent from './InputLineComponent.vue'
 import InputAreaComponent from './InputAreaComponent.vue'
 
-import chooseDefaultColor from '../assets/chooseDefaultColor'
+import colorTheme from '../assets/colorTheme'
 
 const props = defineProps<{
     sourceIndex: number
@@ -44,20 +44,20 @@ function toggleCheckbox() {
     <div
         v-if="fragment"
         :class="`mindfull-fragment-editing-component ${
-            chooseDefaultColor(props.sourceIndex, 0).container
+            colorTheme(props.sourceIndex, 0).container
         }`"
     >
         <div class="mindfull-fragment-editing-component_action">
             <button v-if="fragment.type === 'todo'" @click="toggleCheckbox()">
                 <font-awesome-icon
                     v-if="fragment.value <= 0"
-                    :class="chooseDefaultColor(props.sourceIndex, 0).text"
+                    :class="colorTheme(props.sourceIndex, 0).text"
                     icon="fa-solid fa-square"
                 />
 
                 <font-awesome-icon
                     v-else
-                    :class="chooseDefaultColor(props.sourceIndex, 0).text"
+                    :class="colorTheme(props.sourceIndex, 0).text"
                     icon="fa-solid fa-square-check"
                 />
             </button>
@@ -88,7 +88,7 @@ function toggleCheckbox() {
 
         <div class="mindfull-fragment-editing-component_title">
             <input-line-component
-                :class="chooseDefaultColor(props.sourceIndex, 1).container"
+                :class="colorTheme(props.sourceIndex, 1).container"
                 v-model="fragment.name"
                 debounce="500"
             />
@@ -96,7 +96,7 @@ function toggleCheckbox() {
 
         <div class="mindfull-fragment-editing-component_content">
             <input-area-component
-                :class="chooseDefaultColor(props.sourceIndex, 1).container"
+                :class="colorTheme(props.sourceIndex, 1).container"
                 v-model="fragment.description"
                 debounce="500"
             />

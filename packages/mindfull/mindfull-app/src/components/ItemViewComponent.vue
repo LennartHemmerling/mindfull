@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, onBeforeUnmount, onMounted } from 'vue'
 import type { Worker } from 'workers'
-import { MindfullItemComponent } from 'mindfull-ui'
+import { MindfullItemComponent, colorTheme } from 'mindfull-ui'
 
 import ToolbarComponent from '@/components/ToolbarComponent.vue'
 import mindfullStore, {
@@ -32,7 +32,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 </script>
 
 <template>
-    <div>
+    <div :class="`items ${colorTheme(props.sourceIndex, 2).container}`">
         <template
             v-for="(identifier, i) in data.items"
             :key="`tag-${identifier.id}`"
@@ -65,6 +65,14 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 </template>
 
 <style scoped>
+.items {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
 .item-transition-enter-active,
 .item-transition-leave-active {
     transition: translate 300ms ease-in-out, opacity 200ms ease-in-out;

@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-onMounted(() => router.replace('/1'))
+onMounted(() => router.replace('/0'))
 </script>
 
 <template></template>

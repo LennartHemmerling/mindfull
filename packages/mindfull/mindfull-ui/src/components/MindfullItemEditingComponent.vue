@@ -13,7 +13,7 @@ import InputAreaComponent from './InputAreaComponent.vue'
 
 import MindfullFragmentEditingComponent from './MindfullFragmentEditingComponent.vue'
 
-import chooseDefaultColor from '../assets/chooseDefaultColor'
+import colorTheme from '../assets/colorTheme'
 
 const props = defineProps<{
     sourceIndex: number
@@ -61,12 +61,12 @@ async function addFragment() {
     <div v-if="item">
         <div
             :class="`mindfull-item-editing-component ${
-                chooseDefaultColor(props.sourceIndex, 0).container
+                colorTheme(props.sourceIndex, 0).container
             }`"
         >
             <div class="mindfull-item-editing-component_title">
                 <input-line-component
-                    :class="chooseDefaultColor(props.sourceIndex, 1).container"
+                    :class="colorTheme(props.sourceIndex, 1).container"
                     v-model="item.name"
                     debounce="500"
                 />
@@ -74,7 +74,7 @@ async function addFragment() {
 
             <div class="mindfull-item-editing-component_content">
                 <input-area-component
-                    :class="chooseDefaultColor(props.sourceIndex, 1).container"
+                    :class="colorTheme(props.sourceIndex, 1).container"
                     v-model="item.description"
                     debounce="500"
                 />

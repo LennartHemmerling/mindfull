@@ -50,5 +50,7 @@ const sourceIndex = computed(() => {
 
 h1 {
     color: var(--seasalt);
+
+    padding: 1.5rem;
 }
 </style>

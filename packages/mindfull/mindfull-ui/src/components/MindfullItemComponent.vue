@@ -11,7 +11,7 @@ import type {
 
 import MindfullFragmentComponent from './MindfullFragmentComponent.vue'
 
-import chooseDefaultColor from '../assets/chooseDefaultColor'
+import colorTheme from '../assets/colorTheme'
 
 const props = defineProps<{
     sourceIndex: number
@@ -40,12 +40,12 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
     <div
         v-if="item"
         :class="`mindfull-item-component ${
-            chooseDefaultColor(props.sourceIndex, 0).container
+            colorTheme(props.sourceIndex, 0).container
         }`"
     >
         <div
             :class="`mindfull-item-component_title ${
-                chooseDefaultColor(props.sourceIndex, 0).text
+                colorTheme(props.sourceIndex, 0).text
             }`"
         >
             <h2>{{ item.name }}</h2>
@@ -53,7 +53,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 
         <div
             :class="`mindfull-item-component_content ${
-                chooseDefaultColor(props.sourceIndex, 0).text
+                colorTheme(props.sourceIndex, 0).text
             }`"
         >
             <template
@@ -67,7 +67,7 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
         <div class="mindfull-item-component_edit">
             <button @click="props.clickEdit()">
                 <font-awesome-icon
-                    :class="chooseDefaultColor(props.sourceIndex, 0).text"
+                    :class="colorTheme(props.sourceIndex, 0).text"
                     icon="fa-solid fa-pen-to-square"
                 />
             </button>
