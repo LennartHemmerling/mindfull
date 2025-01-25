@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, onBeforeUnmount, onMounted, watch, computed } from 'vue'
+import { reactive, onBeforeUnmount, watch, computed } from 'vue'
 import type { Worker } from 'workers'
 import { MindfullItemComponent } from 'mindfull-ui'
 
