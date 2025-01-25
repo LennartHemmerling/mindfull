@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { MindfullIdentifier } from 'mindfull-types'
-import { colorTheme, MindfullItemEditingComponent } from 'mindfull-ui'
+import { MindfullItemEditingComponent } from 'mindfull-ui'
 
 import BackButtonComponent from '@/components/BackButtonComponent.vue'
 
@@ -32,10 +32,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main
-        v-if="entry"
-        :class="`wrapper-padding ${colorTheme(sourceIndex, 2).container}`"
-    >
+    <main v-if="entry" class="wrapper-padding">
         <mindfull-item-editing-component
             v-if="identifier"
             :identifier="identifier"

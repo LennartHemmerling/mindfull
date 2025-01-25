@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, onBeforeUnmount, onMounted, watch, computed } from 'vue'
 import type { Worker } from 'workers'
-import { MindfullItemComponent, colorTheme } from 'mindfull-ui'
+import { MindfullItemComponent } from 'mindfull-ui'
 
 import ToolbarComponent from '@/components/ToolbarComponent.vue'
 import {
@@ -26,7 +26,7 @@ const updateWorker = computed<Worker>((old) => {
     })
 })
 
-watch(updateWorker, (updateWorker) => updateWorker.start(5000, true, true), {
+watch(updateWorker, (updateWorker) => updateWorker.start(2000, false, true), {
     immediate: true
 })
 
@@ -34,11 +34,7 @@ onBeforeUnmount(() => updateWorker.value.stop())
 </script>
 
 <template>
-    <div
-        :class="`wrapper-padding ${
-            colorTheme(props.entry.source.sourceIndex, 2).container
-        }`"
-    >
+    <div class="wrapper-padding">
         <template
             v-for="(identifier, i) in data.items"
             :key="`tag-${identifier.id}`"
@@ -73,6 +69,9 @@ onBeforeUnmount(() => updateWorker.value.stop())
 <style scoped>
 .wrapper-padding {
     min-height: 100vh;
+
+    padding-left: 3.5rem;
+    padding-right: 1rem;
 }
 
 .item-transition-enter-active,

@@ -20,30 +20,25 @@ function clickSource(sourceIndex: number) {
 
 <template>
     <div class="sources">
-        <div>
-            <template v-for="source in sources" :key="`source-${source}`">
-                <mindfull-source-component
-                    :source="source"
-                    :selected="
-                        props.entry?.source.sourceIndex === source.sourceIndex
-                    "
-                    :click-source="clickSource"
-                />
-            </template>
-        </div>
+        <template v-for="source in sources" :key="`source-${source}`">
+            <mindfull-source-component
+                :source="source"
+                :selected="
+                    props.entry?.source.sourceIndex === source.sourceIndex
+                "
+                :click-source="clickSource"
+            />
+        </template>
     </div>
 </template>
 
 <style scoped>
 .sources {
-    position: relative;
-}
+    position: fixed;
 
-.sources > div {
-    position: absolute;
+    left: 0;
 
-    left: 1.5rem;
-    right: 0;
+    width: 2.5rem;
 
     display: flex;
     flex-direction: column;

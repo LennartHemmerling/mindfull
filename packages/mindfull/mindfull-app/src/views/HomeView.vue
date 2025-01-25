@@ -22,16 +22,12 @@ const entry = computed(() => {
 <template>
     <div class="home-navigation">
         <main class="home-navigation_item">
-            <h1>mindfull</h1>
-
             <source-view-component :entry="entry" />
+
+            <item-view-component v-if="entry" :entry="entry" />
         </main>
 
-        <main v-if="entry" id="items" class="home-navigation_item">
-            <item-view-component :entry="entry" />
-        </main>
-
-        <main v-if="entry" class="home-navigation_item"></main>
+        <main id="items" class="home-navigation_item"></main>
     </div>
 </template>
 
@@ -39,7 +35,7 @@ const entry = computed(() => {
 .home-navigation {
     display: grid;
 
-    grid-template-columns: 100vw 100vw 100vw;
+    grid-template-columns: 100vw 100vw;
     grid-template-rows: 100vh;
 
     overflow-x: scroll;
