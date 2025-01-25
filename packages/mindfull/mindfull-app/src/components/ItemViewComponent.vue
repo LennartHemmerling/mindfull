@@ -26,7 +26,7 @@ const updateWorker = computed<Worker>((old) => {
     })
 })
 
-watch(updateWorker, (updateWorker) => updateWorker.start(2000, false, true), {
+watch(updateWorker, (updateWorker) => updateWorker.start(2000, true, true), {
     immediate: true
 })
 
