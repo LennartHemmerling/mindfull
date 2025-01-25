@@ -24,7 +24,12 @@ const entry = computed(() => {
         <main class="home-navigation_item">
             <source-view-component :entry="entry" />
 
-            <item-view-component v-if="entry" :entry="entry" />
+            <template v-for="storeEntry in mindfullStore">
+                <item-view-component
+                    v-if="storeEntry === entry"
+                    :entry="entry"
+                />
+            </template>
         </main>
 
         <main id="items" class="home-navigation_item"></main>
