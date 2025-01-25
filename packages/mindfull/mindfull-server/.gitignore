@@ -1,3 +1,7 @@
+./start-bs.ts
+./start-fs.ts
+
+
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
 # Logs
