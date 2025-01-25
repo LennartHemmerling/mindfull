@@ -16,7 +16,7 @@ export type ServerConfiguration = {
 }
 
 function withStatus(res: Response) {
-    return function (status: 200, value?: unknown) {
+    return function (status: 200 | 404, value?: unknown) {
         if (value)
             return res.status(status).json({
                 status,
@@ -44,11 +44,15 @@ export function createServer(serverConfiguration?: ServerConfiguration) {
             })
 
             app.get('/tag', async (req, res) => {
-                const id = req.query.identifier as string
+                try {
+                    const id = req.query.identifier as string
 
-                const tag = await store.getTag({ id })
+                    const tag = await store.getTag({ id })
 
-                withStatus(res)(200, { tag })
+                    withStatus(res)(200, { tag })
+                } catch (e) {
+                    withStatus(res)(404)
+                }
             })
 
             app.post('/tag', async (req, res) => {
@@ -60,11 +64,15 @@ export function createServer(serverConfiguration?: ServerConfiguration) {
             })
 
             app.delete('/tag', async (req, res) => {
-                const identifier = req.body.identifier as MindfullIdentifier
+                try {
+                    const identifier = req.body.identifier as MindfullIdentifier
 
-                await store.removeTag(identifier)
+                    await store.removeTag(identifier)
 
-                withStatus(res)(200)
+                    withStatus(res)(200)
+                } catch (e) {
+                    withStatus(res)(404)
+                }
             })
 
             app.get('/items', async (_, res) => {
@@ -74,11 +82,15 @@ export function createServer(serverConfiguration?: ServerConfiguration) {
             })
 
             app.get('/item', async (req, res) => {
-                const id = req.query.identifier as string
+                try {
+                    const id = req.query.identifier as string
 
-                const item = await store.getItem({ id })
+                    const item = await store.getItem({ id })
 
-                withStatus(res)(200, { item })
+                    withStatus(res)(200, { item })
+                } catch (e) {
+                    withStatus(res)(404)
+                }
             })
 
             app.post('/item', async (req, res) => {
@@ -90,11 +102,15 @@ export function createServer(serverConfiguration?: ServerConfiguration) {
             })
 
             app.delete('/item', async (req, res) => {
-                const identifier = req.body.identifier as MindfullIdentifier
+                try {
+                    const identifier = req.body.identifier as MindfullIdentifier
 
-                await store.removeItem(identifier)
+                    await store.removeItem(identifier)
 
-                withStatus(res)(200)
+                    withStatus(res)(200)
+                } catch (e) {
+                    withStatus(res)(404)
+                }
             })
 
             app.get('/fragments', async (_, res) => {
@@ -104,11 +120,15 @@ export function createServer(serverConfiguration?: ServerConfiguration) {
             })
 
             app.get('/fragment', async (req, res) => {
-                const id = req.query.identifier as string
+                try {
+                    const id = req.query.identifier as string
 
-                const fragment = await store.getFragment({ id })
+                    const fragment = await store.getFragment({ id })
 
-                withStatus(res)(200, { fragment })
+                    withStatus(res)(200, { fragment })
+                } catch (e) {
+                    withStatus(res)(404)
+                }
             })
 
             app.post('/fragment', async (req, res) => {
@@ -120,11 +140,15 @@ export function createServer(serverConfiguration?: ServerConfiguration) {
             })
 
             app.delete('/fragment', async (req, res) => {
-                const identifier = req.body.identifier as MindfullIdentifier
+                try {
+                    const identifier = req.body.identifier as MindfullIdentifier
 
-                await store.removeFragment(identifier)
+                    await store.removeFragment(identifier)
 
-                withStatus(res)(200)
+                    withStatus(res)(200)
+                } catch (e) {
+                    withStatus(res)(404)
+                }
             })
 
             app.listen(port, () => {
