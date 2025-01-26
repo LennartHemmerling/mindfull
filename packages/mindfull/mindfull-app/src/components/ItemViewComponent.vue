@@ -68,8 +68,7 @@ onBeforeUnmount(() => updateWorker.value.stop())
 
 <style scoped>
 .wrapper-padding {
-    min-height: 100vh;
-
+    padding-top: 0.25rem;
     padding-left: 3.5rem;
     padding-right: 1rem;
 }
@@ -81,7 +80,7 @@ onBeforeUnmount(() => updateWorker.value.stop())
 
 .item-transition-enter-from,
 .item-transition-leave-to {
-    translate: -100vw 0;
+    translate: 100vw 0;
     opacity: 0;
 }
 

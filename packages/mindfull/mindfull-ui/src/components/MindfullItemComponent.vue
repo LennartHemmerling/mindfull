@@ -143,6 +143,6 @@ onBeforeUnmount(() => workers.updateWorker?.stop())
 
 .mindfull-item-component_fragments-transition-enter-from,
 .mindfull-item-component_fragments-transition-leave-to {
-    translate: -100vw 0;
+    translate: 100vw 0;
 }
 </style>

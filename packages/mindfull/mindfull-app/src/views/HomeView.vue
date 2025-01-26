@@ -24,12 +24,14 @@ const entry = computed(() => {
         <main class="home-navigation_item">
             <source-view-component :entry="entry" />
 
-            <template v-for="storeEntry in mindfullStore">
-                <item-view-component
-                    v-if="storeEntry === entry"
-                    :entry="entry"
-                />
-            </template>
+            <div class="source-top-margin">
+                <template v-for="storeEntry in mindfullStore">
+                    <item-view-component
+                        v-if="storeEntry === entry"
+                        :entry="entry"
+                    />
+                </template>
+            </div>
         </main>
 
         <main id="items" class="home-navigation_item"></main>
@@ -54,9 +56,7 @@ const entry = computed(() => {
     overflow-y: auto;
 }
 
-h1 {
-    color: var(--seasalt);
-
-    padding: 1.5rem;
+.source-top-margin {
+    margin-top: 100px;
 }
 </style>

@@ -35,8 +35,8 @@ function hydrate(source: MindfullSource) {
 JSON.parse(localStorage.getItem('MINDFULL_SOURCES') || '[]').forEach(hydrate)
 
 hydrate({
-    name: 'Nugget@Buttersmat',
-    description: 'Unsere TODO Listen.',
+    name: 'buttersmat',
+    description: 'Unsere TODO-Listen.',
     sourceIndex: 0,
     location: 'online',
     online: {
@@ -45,8 +45,8 @@ hydrate({
 })
 
 hydrate({
-    name: 'FromScript@Buttersmat',
-    description: 'From script TODO Listen.',
+    name: 'fromScript@buttersmat',
+    description: 'from script TODO-Listen.',
     sourceIndex: 1,
     location: 'online',
     online: {
