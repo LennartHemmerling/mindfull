@@ -14,6 +14,8 @@ The mindfull server application is located at `/packages/mindfull/mindfull-serve
 
 #### .env configuration `/packages/mindfull/mindfull-server/.env`
 
+Example:
+
 ```
 SERVER_PORT = 5000
 SERVER_USE_STORE = file //memory
