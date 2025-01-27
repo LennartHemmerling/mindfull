@@ -41,6 +41,8 @@ function clickSource(sourceIndex: number) {
 
 <style scoped>
 .sources {
+    pointer-events: none;
+
     position: fixed;
 
     left: 0;

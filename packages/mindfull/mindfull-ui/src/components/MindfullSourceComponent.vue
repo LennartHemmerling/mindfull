@@ -35,6 +35,8 @@ const props = defineProps<{
 }
 
 .mindfull-source-component button {
+    pointer-events: all;
+
     text-align: start;
 
     border: none;
